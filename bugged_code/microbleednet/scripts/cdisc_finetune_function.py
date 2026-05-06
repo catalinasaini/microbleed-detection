@@ -134,23 +134,8 @@ def main(subjects, finetune_params, perform_augmentation=True, save_checkpoint=T
         print(f'Num tp patches: {len(tp_patches_store)}, Num fp patches: {len(fp_patches_store)}')
 
     train_patches_store, validation_patches_store = utils.split_patches(tp_patches_store, fp_patches_store, train_proportion)
-    
-    # BUG! Requires ratio as argument
-    # train_set = datasets.CDiscPatchDataset(train_patches_store['negative'], train_patches_store['positive'], perform_augmentations=True)
-    # validation_set = datasets.CDiscPatchDataset(validation_patches_store['negative'], validation_patches_store['positive'])
-
-    train_set = datasets.CDiscPatchDataset(
-        train_patches_store['negative'],
-        train_patches_store['positive'],
-        ratio='1:1', # set as 1:1, just as in CDet, but can be changed
-        perform_augmentations=True
-    )
-
-    validation_set = datasets.CDiscPatchDataset(
-        validation_patches_store['negative'],
-        validation_patches_store['positive'],
-        ratio='1:1'
-    )
+    train_set = datasets.CDiscPatchDataset(train_patches_store['negative'], train_patches_store['positive'], perform_augmentations=True)
+    validation_set = datasets.CDiscPatchDataset(validation_patches_store['negative'], validation_patches_store['positive'])
 
     if verbose:
         print(f'Num training patches: {len(train_set)}, Num validation patches: {len(validation_set)}')

@@ -111,7 +111,7 @@ def eigenvalues_and_linearity_measure(image_slice):
     linearity_measure = np.absolute((lambda1 - lambda2) / 2)
     return lambda1, lambda2, linearity_measure
 
-def inpaint_vessels(image, brain_mask): # BUG: inpaint fails in SWI images
+def inpaint_vessels(image, brain_mask):
 
     labelled_mask_volume = np.zeros_like(image)
     inpainted_volume = np.zeros_like(image)
@@ -541,7 +541,7 @@ def fast_radial_symmetry_xfm(image, radii, alpha=2, factor_std=0.1, bright=False
                 g = np.array([gx[i, j], gy[i, j]]).astype(int)
                 g_norm = np.sqrt(g @ g.T)
                 if (g_norm > 0):
-                    gp = np.round((g // g_norm) * n) # BUG: should be normal /, not floor division
+                    gp = np.round((g // g_norm) * n)
                     if bright:
                         ppos = p + gp
                         ppos = (ppos + offset_img)

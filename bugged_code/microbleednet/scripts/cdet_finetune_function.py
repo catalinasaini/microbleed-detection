@@ -93,21 +93,8 @@ def main(subjects, finetune_params, perform_augmentation=True, save_checkpoint=T
         print(f"Num positive patches: {len(positive_patches_store)}, Num negative patches: {len(negative_patches_store)}")
 
     train_patches_store, validation_patches_store = utils.split_patches(positive_patches_store, negative_patches_store, train_proportion)
-    # train_set = datasets.CDetPatchDataset(train_patches_store['positive'], train_patches_store['negative'], perform_augmentations=True)
-    # validation_set = datasets.CDetPatchDataset(validation_patches_store['positive'], validation_patches_store['negative'])
-
-    train_set = datasets.CDetPatchDataset(
-        train_patches_store['positive'],
-        train_patches_store['negative'],
-        ratio='1:1', # BUG: ratio keyword expected
-        perform_augmentations=True
-    )
-
-    validation_set = datasets.CDetPatchDataset(
-        validation_patches_store['positive'],
-        validation_patches_store['negative'],
-        ratio='1:1' # BUG: ratio keyword expected
-    )
+    train_set = datasets.CDetPatchDataset(train_patches_store['positive'], train_patches_store['negative'], perform_augmentations=True)
+    validation_set = datasets.CDetPatchDataset(validation_patches_store['positive'], validation_patches_store['negative'])
 
     if verbose:
         print(f'Num training patches: {len(train_set)}, Num validation patches: {len(validation_set)}')
